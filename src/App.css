@@ -1,4 +1,7 @@
-.App {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* .App {
   text-align: center;
 }
 
@@ -31,4 +34,4 @@
   background-color: white;
   border-radius: 7px;
   font-weight: bold;
-}
+} */
