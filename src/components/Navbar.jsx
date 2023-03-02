@@ -54,7 +54,7 @@ export default function Example() {
                         className={({ isActive }) => {
                           return (
                             'px-3 py-2 rounded-md text-ml font-medium no-underline' + 
-                            (!isActive ? 'text-gray-300 hover:bg-gray-700 hover:text-white' 
+                            (isActive ? 'text-gray-300 bg-gray-700 text-white' 
                             : 'bg-gray-800 text-white')
                           );
                         }}

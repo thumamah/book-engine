@@ -1,10 +1,54 @@
-.head-img{
+/* .head {
+    align-items: center;
+} */
+
+.search {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    background-color: white;
+    padding: 30px 0px;
+    width: 70%;
+    border: 6px solid navy;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
     
-    width: max-content;
-    height: 100px;
 }
 
-.head{
-    
-    /* max-width: 1024px; */   
+.bookItems {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.headerSearchInput {
+    /* border: 2px solid black;
+    border-radius: 3px; */
+    border: none;
+    outline: none;
+}
+
+.icon {
+    color:navy;
+    padding: 2px;
+    font-size: larger;
+
+}
+
+.dates {
+    position: absolute;
+    top: 92px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 750px) {
+    .search {
+        position: absolute;
+        top: 20%;
+        /* max-width: 1024px; */
+    }
 }
