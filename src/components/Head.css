@@ -45,10 +45,19 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 950px) {
     .search {
         position: absolute;
         top: 20%;
+        display: inline;
+        padding: 20px;
         /* max-width: 1024px; */
     }
+
+    .bookItems {
+    padding: 10px;
+}
+.headerSearchInput{
+    width: 100px;
+}
 }

@@ -1,13 +1,17 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Home', href: '/Home', },
+  { name: 'Home', href: '/', },
+  { name: 'About', href: '/About', },
   { name: 'Contact', href: '/Contact', },
-  { name: 'Projects', href: '/other', },
-  { name: 'Calendar', href: '/other3', },
+]
+
+const log_navigation = [
+  { name: 'Login', href: '/Login', },
+  { name: 'Register', href: '/Register', },
+  
 ]
 
 function classNames(...classes) {
@@ -45,7 +49,7 @@ export default function Example() {
                     alt="Your Company"
                   />
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block ">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <NavLink
@@ -65,10 +69,29 @@ export default function Example() {
                     ))}
                   </div>
                 </div>
+
+                
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Login
+                <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
+                
+              <NavLink 
+              key={"Login"}
+              to={"/Login"}
+              >Login
+                </NavLink>
+                </button>
+
+                <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
+                
+              <NavLink 
+              key={"Register"}
+              to={"/Register"}
+              >
+                Register
+                </NavLink>
                 </button>
 
 
@@ -127,9 +150,7 @@ export default function Example() {
                     </Menu.Items>
                   </Transition>
                 </Menu> */}
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
-                  Register
-                </button>
+                
               </div>
             </div>
           </div>

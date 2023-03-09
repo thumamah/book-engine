@@ -50,8 +50,7 @@ const Navbar = () => {
     return (
 
         <div className="head">
-            <div
-                className="">
+            
                 <img
                     class="rounded"
                     src={img1}
@@ -75,11 +74,12 @@ const Navbar = () => {
                         also formatting the date in the day, month, year format.
                         */}
                         <span onClick={() => setOpenDate(!openDate)}>{`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(date[0].endDate, "dd/MM/yyyy")}`}</span>
-                         {/* adding a condition to ensure date model is closed on page reload and first visit */}
+                        {/* adding a condition to ensure date model is closed on page reload and first visit */}
                         {openDate && <DateRange
                             onChange={item => setDate([item.selection])}
                             showSelectionPreview={true}
                             moveRangeOnFirstSelection={false}
+                            minDate={new Date()}
                             months={1}
                             ranges={date}
                             className='dates'
@@ -129,7 +129,7 @@ const Navbar = () => {
                     </div>
                 </div>
 
-            </div>
+            
         </div>
 
 
