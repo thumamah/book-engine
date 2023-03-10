@@ -1,0 +1,71 @@
+@startuml
+title Hotel Reservation System Flow Control
+
+actor User
+actor Admin
+
+User -> Frontend: Access Hotel Reservation System
+Frontend -> Backend: Send get request
+Backend -> Frontend: Send response with info
+
+== Registration ==
+
+User -> Frontend: Clicks "Register"
+Frontend -> Backend: Send registration request with user data
+Backend -> Database: Create new user record
+Database -> Backend: Return user ID
+
+== Login ==
+
+User -> Frontend: Clicks "Login"
+Frontend -> Backend: Send login request with user credentials
+Backend -> Database: Verify user credentials
+Database -> Backend: Return user ID
+Backend -> Backend: Generate JWT token
+Backend -> Frontend: Send JWT token in response
+
+== Password Change ==
+
+User -> Frontend: Clicks "Change Password"
+Frontend -> Backend: Send password change request with old and new passwords
+Backend -> Database: Verify old password
+Database -> Backend: Update user password
+Backend -> Backend: Generate new JWT token
+Backend -> Frontend: Send new JWT token in response
+
+== Room Availability ==
+
+User -> Frontend: Selects "Check Availability"
+Frontend -> Backend: Send room availability request with check-in and check-out dates
+Backend -> Database: Query available rooms
+Database -> Backend: Return list of available rooms
+Backend -> Frontend: Send list of available rooms in response
+
+== Room Reservation ==
+
+User -> Frontend: Selects "Book Room"
+Frontend -> Backend: Send room reservation request with room ID, check-in date, and check-out date
+Backend -> Database: Create new reservation record
+Database -> Backend: Associate reservation with user and room
+Backend -> Frontend: Send reservation confirmation in response
+
+== Adding New Room ==
+
+Admin -> Frontend: Selects "Add room"
+Frontend -> Backend: Send post request with JWT token
+Backend -> Database: Create new room
+Database -> Backend: Updates hotel model
+Backend -> Frontend: Send confirmation in response
+
+== Reservation Cancellation ==
+
+User -> Frontend: Selects "Cancel Reservation"
+Frontend -> Backend: Send reservation cancellation request with reservation ID
+Backend -> Database: Delete reservation record
+Backend -> Frontend: Send cancellation confirmation in response
+
+Admin -> Frontend: Access Admin Panel
+Frontend -> Backend: Send request with JWT token and admin credentials
+Backend -> Frontend: Send response with admin data
+
+@enduml
