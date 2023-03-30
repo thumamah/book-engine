@@ -1,6 +1,5 @@
 import React from 'react';
-import img1 from './head-img1.jpg';
-import './Head.css';
+import './HotelSearch.css';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
@@ -13,29 +12,33 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation, useNavigate } from 'react-router-dom';
+import HotelResults from './HotelResults';
 
-const Navbar = () => {
+const HotelSearch = () => {
     // used react useState hook to remeber is the date model is open or not
     // by default it'll be closed.
     const [openDate, setOpenDate] = useState(false)
     // storing users selected date using react date range library
-    const [date, setDate] = useState([
-        {
-            // start date is the current date
-            startDate: new Date(),
-            // end date is 1 day after start
-            endDate: addDays(new Date(), 1),
-            key: 'selection'
-        }
-    ]);
+    // const [date, setDate] = useState([
+    //     {
+    //         // start date is the current date
+    //         startDate: new Date(),
+    //         // end date is 1 day after start
+    //         endDate: addDays(new Date(), 1),
+    //         key: 'selection'
+    //     }
+    // ]);
 
+    const loc = useLocation();
     // using react useState hook to store users selected room, adults and children
     // by default room and adult is defined as 1, children has been as 0.
-    const [numRooms, setNumRooms] = useState(1);
-    const [numAdults, setNumAdults] = useState(1);
-    const [numChildren, setNumChildren] = useState(0);
-    const [Destination, setDestination] = useState('');
+    const [numRooms, setNumRooms] = useState(loc.state.numRooms);
+    const [numAdults, setNumAdults] = useState(loc.state.numAdults);
+    const [numChildren, setNumChildren] = useState(loc.state.numChildren);
 
+    const [date, setDate] = useState(loc.state.date);
+    const [Destination, setDestination] = useState(loc.state.Destination);
+    
 
     // event handlers to update the state whenever the user changes value
     const handleNumRoomsChange = (event) => {
@@ -51,30 +54,25 @@ const Navbar = () => {
     };
 
     const navi = useNavigate()
-    const loc = useLocation();
     const searchFunc = ()=>{
-        navi("../Hotels", {state: {Destination, date, numRooms, numAdults, numChildren}});
+        navi("../Hotels");
     }
+
 
     return (
 
         <div className="head">
             
-                <img
-                    class="rounded"
-                    src={img1}
-                    alt="" />
-                <div className='search'>
+                
+                <div className='Hsearch'>
                     <div className="bookItems">
                         {/* used font awesome icons */}
                         <FontAwesomeIcon icon={faBed} className='icon' />
                         {/* input for field for searching hotels */}
                         <input
                             type="text"
-                            placeholder="Destination"
+                            placeholder={Destination}
                             className="headerSearchInput"
-                            
-                            onChange={(e) => setDestination(e.target.value)}
                         />
                     </div>
                     {/* date selection */}
@@ -140,7 +138,7 @@ const Navbar = () => {
                     </div>
                 </div>
 
-            
+            <HotelResults/>
         </div>
 
 
@@ -148,4 +146,4 @@ const Navbar = () => {
 
 }
 
-export default Navbar
+export default HotelSearch

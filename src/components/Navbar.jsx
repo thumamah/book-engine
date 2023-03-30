@@ -9,7 +9,7 @@ const navigation = [
 ]
 
 const log_navigation = [
-  { name: 'Login', href: '/Login', },
+  { name: 'Login', href: '/login', },
   { name: 'Register', href: '/Register', },
   
 ]

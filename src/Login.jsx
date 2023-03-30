@@ -1,10 +1,33 @@
 import React from 'react'
 import Navbar from './components/Navbar'
+import axios from 'axios'
+import { useState } from "react";
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import img_logo from './components/log.png'; 
+import img_logo from './components/log.png';
 import { NavLink } from 'react-router-dom'
 
 export default function Login() {
+
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3001/login', { email, password },
+                );
+            console.log(response.data);
+            // handle successful login here
+        } catch (error) {
+            console.error("tgfirvjgvnrtfnmrtfko");
+            console.log(email)
+            console.error(error);
+
+            // handle login error here
+        }
+    }
     return (
         <div>
             <Navbar />
@@ -29,6 +52,8 @@ export default function Login() {
                                     Email address
                                 </label>
                                 <input
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     id="email-address"
                                     name="email"
                                     type="email"
@@ -44,6 +69,9 @@ export default function Login() {
                                     Password
                                 </label>
                                 <input
+
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
                                     id="password"
                                     name="password"
                                     type="password"
@@ -56,12 +84,12 @@ export default function Login() {
                         </div>
 
                         <div className="flex items-center justify-between">
-                            
+
 
                             <div className="text-sm">
                                 <NavLink
-                                key={"forgot"}
-                                to={"../forgot"}>
+                                    key={"forgot"}
+                                    to={"../forgot"}>
                                     Forgot Password?
                                 </NavLink>
                             </div>
@@ -69,7 +97,9 @@ export default function Login() {
 
                         <div>
                             <button
-                                type="submit"
+                                onClick={handleLogin}
+
+
                                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">

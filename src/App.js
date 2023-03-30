@@ -4,6 +4,7 @@ import Login from './Login';
 import Forgot from './Forgot'; 
 import Register from './Register';
 import About from './About'; 
+import Hotels from './Hotels'; 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Contact from './Contact';
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/Register" element={<Register/>}/>
         <Route path="/Forgot" element={<Forgot/>}/>
         <Route path="/About" element={<About/>}/>
+        <Route path="/Hotels" element={<Hotels/>}/>
       </Routes>
     </BrowserRouter>
 

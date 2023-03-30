@@ -1,9 +1,27 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import img_logo from './components/log.png'; 
+import img_logo from './components/log.png';
+import { useState } from "react";
+import axios from 'axios'
 
 export default function Register() {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3001/register', { name, email, password });
+            console.log(response.data);
+            // handle successful registration here
+        } catch (error) {
+            console.error(error);
+            // handle registration error here
+        }
+    };
     return (
         <div>
             <Navbar />
@@ -23,13 +41,15 @@ export default function Register() {
                     <form className="mt-8 space-y-6" action="#" method="POST">
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="-space-y-px rounded-md shadow-sm">
-                            
 
-                        <div>
+
+                            <div>
                                 <label htmlFor="email-address" className="sr-only">
                                     Name
                                 </label>
                                 <input
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                     id="Name"
                                     name="Name"
                                     type="text"
@@ -45,6 +65,8 @@ export default function Register() {
                                     Email address
                                 </label>
                                 <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                     id="email-address"
                                     name="email"
                                     type="email"
@@ -60,6 +82,8 @@ export default function Register() {
                                     Password
                                 </label>
                                 <input
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
                                     id="password"
                                     name="password"
                                     type="password"
@@ -86,10 +110,11 @@ export default function Register() {
                             </div>
                         </div>
 
-                        
+
 
                         <div>
                             <button
+                            onClick={handleRegister}
                                 type="submit"
                                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
