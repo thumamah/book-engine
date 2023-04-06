@@ -4,12 +4,14 @@ import Login from './Login';
 import Forgot from './Forgot'; 
 import Register from './Register';
 import About from './About'; 
-import Hotels from './Hotels'; 
+import Hotels from './Hotels';
+import { UserProvider } from "./UserContext";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Contact from './Contact';
 
 function App() {
   return (
+    <UserProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -21,6 +23,7 @@ function App() {
         <Route path="/Hotels" element={<Hotels/>}/>
       </Routes>
     </BrowserRouter>
+    </UserProvider>
 
   );
 }

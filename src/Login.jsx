@@ -1,13 +1,14 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import axios from 'axios'
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import img_logo from './components/log.png';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
 export default function Login() {
-
+    const { login } = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,9 +20,10 @@ export default function Login() {
             const response = await axios.post('http://localhost:3001/login', { email, password },
                 );
             console.log(response.data);
+            login(email, password);
             // handle successful login here
         } catch (error) {
-            console.error("tgfirvjgvnrtfnmrtfko");
+            console.error("error");
             console.log(email)
             console.error(error);
 
