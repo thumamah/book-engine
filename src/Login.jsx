@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 import { UserContext } from './UserContext';
 
 export default function Login() {
-    const { login } = useContext(UserContext);
+    const { user, login } = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,8 +19,9 @@ export default function Login() {
         try {
             const response = await axios.post('http://localhost:3001/login', { email, password },
                 );
-            console.log(response.data);
+            console.log(response.data.email);
             login(email, password);
+            console.log(email, password);
             // handle successful login here
         } catch (error) {
             console.error("error");
@@ -109,6 +110,7 @@ export default function Login() {
                                 </span>
                                 Sign in
                             </button>
+                            
                         </div>
                     </form>
                 </div>

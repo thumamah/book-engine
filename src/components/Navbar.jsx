@@ -3,6 +3,9 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom';
 import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
 
 const navigation = [
   { name: 'Home', href: '/', },
@@ -23,6 +26,24 @@ function classNames(...classes) {
 export default function Example() {
 
   const { user, login, logout } = useContext(UserContext);
+  const [userName, setUserName] = useState('');
+
+  const logout_fun = async () => {
+    try {
+      await axios.post('http://localhost:3001/logout');
+      logout();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     setUserName(user.email);
+  //   } else {
+  //     setUserName('');
+  //   }
+  // }, [user]);
 
 
   return (
@@ -84,8 +105,8 @@ export default function Example() {
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 
                     <NavLink
-                      key={"Login"}
-                      to={"/Login"}
+                     
+                      onClick={logout_fun}
                     >Logout
                     </NavLink>
                   </button>
@@ -93,7 +114,8 @@ export default function Example() {
                   <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 
-                   {user.name}
+                   {user.email}
+                   ({console.log(user)})
                   </button>
 
                   

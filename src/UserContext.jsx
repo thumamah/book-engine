@@ -5,11 +5,22 @@ export const UserContext = createContext();
 
 const UserProvider = (props) => {
   const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    // Check if user is stored in local storage
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [user]);
 
   const login = async (email, password) => {
     try {
       const res = await axios.post("http://localhost:3001/login", { email, password });
-      setUser({ email: res.data.email });
+      setUser({ name: res.data.email });
+      setUserName(res.data.email);
+      localStorage.setItem("user", JSON.stringify({ email: res.data.email }));
     } catch (error) {
       console.error(error.message);
     }
@@ -17,6 +28,7 @@ const UserProvider = (props) => {
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (
