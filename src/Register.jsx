@@ -4,24 +4,28 @@ import { LockClosedIcon } from '@heroicons/react/20/solid'
 import img_logo from './components/log.png';
 import { useState } from "react";
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const nav = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/register', { name, email, password });
             console.log(response.data);
+            nav("/")
             // handle successful registration here
         } catch (error) {
             console.error(error);
             // handle registration error here
         }
     };
+
     return (
         <div>
             <Navbar />

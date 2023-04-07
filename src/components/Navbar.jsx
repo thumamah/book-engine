@@ -101,26 +101,28 @@ export default function Example() {
               </div>
               {user ? (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                   <button
+                      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
+
+                      {user.email}
+
+                    </button>
                   <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 
+                   
                     <NavLink
-                     
+
                       onClick={logout_fun}
                     >Logout
                     </NavLink>
                   </button>
 
-                  <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 
-                   {user.email}
-                   ({console.log(user)})
-                  </button>
 
-                  
 
-                  
+
+
                 </div>
               ) : (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
