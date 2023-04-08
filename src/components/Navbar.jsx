@@ -1,6 +1,6 @@
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import axios from 'axios';
@@ -25,6 +25,8 @@ function classNames(...classes) {
 
 export default function Example() {
 
+  const nav = useNavigate();
+
   const { user, login, logout } = useContext(UserContext);
   const [userName, setUserName] = useState('');
 
@@ -32,6 +34,7 @@ export default function Example() {
     try {
       await axios.post('http://localhost:3001/logout');
       logout();
+      nav("/")
     } catch (error) {
       console.error(error.message);
     }

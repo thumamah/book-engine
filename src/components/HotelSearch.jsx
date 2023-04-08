@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import HotelResults from './HotelResults';
 
 const HotelSearch = () => {
+    
     // used react useState hook to remeber is the date model is open or not
     // by default it'll be closed.
     const [openDate, setOpenDate] = useState(false)
@@ -55,7 +56,16 @@ const HotelSearch = () => {
 
     const navi = useNavigate()
     const searchFunc = ()=>{
-        navi("../Hotels");
+        const searchParams = {
+            destination: Destination,
+            startDate: date[0].startDate.toISOString(),
+            endDate: date[0].endDate.toISOString(),
+            numRooms,
+            numAdults,
+            numChildren,
+          };
+          
+          navi("../Hotels", { state: searchParams });
     }
 
 
