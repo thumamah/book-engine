@@ -2,7 +2,7 @@ import burj1 from './burj1.jpg';
 import Footer from './Footer';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const products = [
     {
@@ -35,23 +35,24 @@ const products = [
     // More products...
   ]
   
-  export default function HotelResults({ searchParam }) {
+  const RoomResults = (props) => {
+    
     const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/findHotel/dublin`);
+        const response = await axios.get(`http://localhost:3001/findRoom/64318ed87edb27a85685489d`);
         setHotels(response.data);
         console.log(response.data)
-        console.log(searchParam)
+        console.log(props.hotelId)
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchHotels();
-  }, [searchParam]);
+  }, [props.hotelId]);
     return (
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -69,13 +70,13 @@ const products = [
                 </div>
                 <div className="mt-4 flex justify-between">
                   <div>
-                  <h3 className="text-sm text-gray-700">
-                    <Link to={`/Rooms/${product._id}`} hotelId={product._id}>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
-                    </Link>
-                  </h3>
-                    <p className="mt-1 text-sm text-gray-500">{product._id}</p>
+                    <h3 className="text-sm text-gray-700">
+                      <a href={product._id}>
+                        <span aria-hidden="true" className="absolute inset-0" />
+                        {product.name}
+                      </a>
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">{product.info}</p>
                   </div>
                   <p className="text-sm font-medium text-gray-900">{product.location}</p>
                 </div>
@@ -87,4 +88,5 @@ const products = [
       </div>
     )
   }
+  export default RoomResults;
   

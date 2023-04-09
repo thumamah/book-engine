@@ -8,6 +8,7 @@ import Hotels from './Hotels';
 import { UserProvider } from "./UserContext";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Contact from './Contact';
+import Rooms from './Rooms';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/Forgot" element={<Forgot/>}/>
         <Route path="/About" element={<About/>}/>
         <Route path="/Hotels" element={<Hotels/>}/>
+        <Route path="/Rooms" element={<Rooms/>}/>
       </Routes>
     </BrowserRouter>
     </UserProvider>
