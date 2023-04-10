@@ -6,6 +6,7 @@ import Register from './Register';
 import About from './About'; 
 import Hotels from './Hotels';
 import { UserProvider } from "./UserContext";
+import { SearchProvider } from "./SearchContext";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Contact from './Contact';
 import Rooms from './Rooms';
@@ -13,6 +14,7 @@ import Rooms from './Rooms';
 function App() {
   return (
     <UserProvider>
+      <SearchProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -25,6 +27,7 @@ function App() {
         <Route path="/Rooms" element={<Rooms/>}/>
       </Routes>
     </BrowserRouter>
+    </SearchProvider>
     </UserProvider>
 
   );

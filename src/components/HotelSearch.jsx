@@ -147,8 +147,7 @@ const HotelSearch = () => {
                         </button>
                     </div>
                 </div>
-
-            <HotelResults/>
+                <HotelResults name={Destination}/>
         </div>
 
 

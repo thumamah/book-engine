@@ -1,10 +1,12 @@
 import React from 'react';
 import img1 from './head-img1.jpg';
+import { useContext } from 'react';
 import './Head.css';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
 import { useState } from "react";
+import { SearchContext } from '../SearchContext';
 import { format, addDays } from 'date-fns';
 import {
     faBed,
@@ -14,7 +16,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Head = () => {
+    const searchContext = useContext(SearchContext);
     // used react useState hook to remeber is the date model is open or not
     // by default it'll be closed.
     const [openDate, setOpenDate] = useState(false)
@@ -148,4 +151,4 @@ const Navbar = () => {
 
 }
 
-export default Navbar
+export default Head

@@ -2,7 +2,6 @@ import burj1 from './burj1.jpg';
 import Footer from './Footer';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const products = [
     {
@@ -38,21 +37,23 @@ const products = [
   const RoomResults = (props) => {
     
     const [hotels, setHotels] = useState([]);
+    console.log(props.names[0])
 
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/findRoom/64318ed87edb27a85685489d`);
+        console.log(props.names)
+        const response = await axios.get(`http://localhost:3001/findRoom/${props.names}`);
         setHotels(response.data);
         console.log(response.data)
-        console.log(props.hotelId)
+        console.log(props.names)
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchHotels();
-  }, [props.hotelId]);
+  }, [props.names]);
     return (
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
