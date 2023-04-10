@@ -62,7 +62,7 @@ const HotelResults = (props) => {
 
     fetchHotels();
   }, []);
-
+  console.log(hotels.length)
   const search = (h) => {
     console.log("heyytgbuygbh")
     navi("../Rooms", { state: { Destination, h} });
@@ -72,7 +72,7 @@ const HotelResults = (props) => {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Hotels</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Hotels in {Destination} : {hotels.length} Properties Found</h2>
 
         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-1 lg:grid-cols-1 xl:gap-x-8">
           {hotels.map((product) => (
@@ -110,7 +110,7 @@ const HotelResults = (props) => {
             </div>
             
             <button onClick={() => search(product._id)} class="bg-orange-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-1">
-                  Searchs
+                  Check Room Availability
                 </button>
             </>
           ))}
