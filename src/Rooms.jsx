@@ -10,8 +10,10 @@ export default function Rooms() {
   const location = useLocation();
   const Destination = location.state.Destination;
   const h = location.state.h;
+  const numRooms = location.state.numRooms;
   console.log(Destination)
   console.log(h)
+  console.log(numRooms)
   //const [hotels, setHotels] = useState([]);
   //const [Destination, setDestination] = useState(loc.state.Destination);
 
