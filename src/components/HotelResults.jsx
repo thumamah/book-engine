@@ -42,7 +42,7 @@ const HotelResults = (props) => {
   console.log(hotels.length)
   const search = (h) => {
     console.log("heyytgbuygbh")
-    navi("../Rooms", { state: { Destination, h, numRooms } });
+    navi("../Rooms", { state: { Destination, h, numRooms, numAdults, numChildren, date } });
   }
   console.log(search)
 
