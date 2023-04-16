@@ -14,6 +14,7 @@ User -> Frontend: Clicks "Register"
 Frontend -> Backend: Send registration request with user data
 Backend -> Database: Create new user record
 Database -> Backend: Return user ID
+Backend -> Frontend: Send Confirmation Email using nodemailer
 
 == Login ==
 
@@ -64,8 +65,18 @@ Frontend -> Backend: Send reservation cancellation request with reservation ID
 Backend -> Database: Delete reservation record
 Backend -> Frontend: Send cancellation confirmation in response
 
-Admin -> Frontend: Access Admin Panel
-Frontend -> Backend: Send request with JWT token and admin credentials
-Backend -> Frontend: Send response with admin data
+== View Room Occupancy Rates ==
+
+Admin -> Frontend: Selects "View Occupancy Rates"
+Frontend -> Backend: Send occupancy rate request for the year
+Backend -> Backend: Schedule algorithm to run daily
+Backend -> Backend: Invoke algorithm to calculate occupancy rates
+Backend -> Database: Retrieve list of all bookings for the year
+Backend -> Backend: Create calendar with each day marked as available
+Backend -> Backend: For each booking in the list: Retrieve check-in and check-out dates \nMark corresponding days in calendar as unavailable, \n For each day in the calendar:\nCount available rooms for the day\nCalculate occupancy rate for the day\nStore occupancy rate in separate data structure
+' Algorithm -> | Mark corresponding days in calendar as unavailable
+Backend -> Database: Store occupancy rates in database
+Database -> Backend: Retrieve occupancy rates from database
+Backend -> Frontend: Send occupancy rates in response
 
 @enduml
