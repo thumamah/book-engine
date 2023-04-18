@@ -3,9 +3,12 @@ import Footer from './Footer';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const RoomResults = (props) => {
     const loc = useLocation();
+
+    const [cookies, setCookie] = useCookies(['token']);
 
     const [Destination, setDestination] = useState(loc.state.Destination);
     const [numRooms, setNumRooms] = useState(loc.state.numRooms);
@@ -26,8 +29,8 @@ const RoomResults = (props) => {
         const fetchHotels = async () => {
             try {
                 console.log(props.names)
-                const response = await axios.get(`http://localhost:3001/findRoom/${props.names}`);
-                setHotels(response.data);
+                const response = await axios.get(`http://localhost:3001/findRoom/${props.names}?startDate=${date[0].startDate}&endDate=${date[0].endDate}`);
+                setHotels(response.data.availableRooms);
                 console.log(response.data)
                 console.log(hotels)
             } catch (error) {
@@ -43,32 +46,32 @@ const RoomResults = (props) => {
     const reserve = async (roomId, price) => {
         const rdata = {
             roomId: roomId,
-            sDate: date[0].startDate,
-            eDate: date[0].endDate,
+            startDate: date[0].startDate,
+            endDate: date[0].endDate,
             numAdults: numAdults,
             id: localStorage.getItem('id'),
-            price: price,
+            totalPrice: price,
         }
         console.log(rdata)
+        console.log(cookies.token)
 
         try {
-            const response = await fetch(`http://localhost:3001/reserve/${roomId}`, {
-             method: "POST",
+            const response = await axios.post(`http://localhost:3001/reserve/${roomId}`,rdata, {
               headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': `${localStorage.getItem('togken')}`
+                'withCredentials': true,
+                'x-auth-token': cookies.token
               },
               
             });
-            const data = await response.json();
-            console.log('Reservation successful:', data);
+            navi('../Confirmation');
             // add code to handle a successful reservation, such as displaying a confirmation message
           } catch (error) {
             console.log(roomId)
             console.error('Reservation failed:', error);
             // add code to handle a failed reservation, such as displaying an error message
           }
-        //navi('../Confirmation');
+        
     }
 
     return (

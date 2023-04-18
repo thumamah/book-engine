@@ -5,6 +5,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 
 
 const navigation = [
@@ -38,6 +39,10 @@ export default function Navbar() {
     } catch (error) {
       console.error(error.message);
     }
+  };
+
+  const profile_button = async () => {
+      nav("../Profile")
   };
 
   // useEffect(() => {
@@ -104,12 +109,13 @@ export default function Navbar() {
               </div>
               {user ? (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                   <button
+                   <Link to={"../Profile"}><button
                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 
                       {user.email}
 
                     </button>
+                    </Link>
                   <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 

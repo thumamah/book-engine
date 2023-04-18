@@ -11,6 +11,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Contact from './Contact';
 import Rooms from './Rooms';
 import Confirmation from './Confirmation';
+import Profile from './Profile';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/Hotels" element={<Hotels/>}/>
         <Route path="/Rooms" element={<Rooms/>}/>
         <Route path="/Confirmation" element={<Confirmation/>}/>
+        <Route path="/Profile" element={<Profile/>}/>
       </Routes>
     </BrowserRouter>
     </SearchProvider>

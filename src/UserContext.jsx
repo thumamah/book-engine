@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from 'js-cookie';
+
 
 export const UserContext = createContext();
 
@@ -22,6 +24,7 @@ const UserProvider = (props) => {
       setUserName(res.data.email);
       localStorage.setItem("user", JSON.stringify({ email: res.data.email }));
       localStorage.setItem("token", JSON.stringify(res.data.token));
+      Cookies.set("token", res.data.token);
       localStorage.setItem("id", res.data.id );
     } catch (error) {
       console.error(error.message);
@@ -31,6 +34,9 @@ const UserProvider = (props) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
+    Cookies.remove("token")
   };
 
   return (
