@@ -34,7 +34,7 @@ export default function Navbar() {
     try {
       await axios.post('http://localhost:3001/logout');
       logout();
-      nav("/")
+      // nav("/")
     } catch (error) {
       console.error(error.message);
     }

@@ -10,6 +10,7 @@ import { SearchProvider } from "./SearchContext";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Contact from './Contact';
 import Rooms from './Rooms';
+import Confirmation from './Confirmation';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/About" element={<About/>}/>
         <Route path="/Hotels" element={<Hotels/>}/>
         <Route path="/Rooms" element={<Rooms/>}/>
+        <Route path="/Confirmation" element={<Confirmation/>}/>
       </Routes>
     </BrowserRouter>
     </SearchProvider>

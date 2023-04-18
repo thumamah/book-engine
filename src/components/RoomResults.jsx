@@ -2,7 +2,7 @@ import burj1 from './burj1.jpg';
 import Footer from './Footer';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const RoomResults = (props) => {
     const loc = useLocation();
@@ -18,7 +18,7 @@ const RoomResults = (props) => {
     // console.log(numChildren)
     const diffTime = Math.abs(date[0].endDate.getTime() - date[0].startDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    console.log(diffDays)
+    console.log(date)
     const [hotels, setHotels] = useState([]);
     console.log(props.names)
 
@@ -28,8 +28,8 @@ const RoomResults = (props) => {
                 console.log(props.names)
                 const response = await axios.get(`http://localhost:3001/findRoom/${props.names}`);
                 setHotels(response.data);
-                console.log(response.data.price)
-                console.log(props.names)
+                console.log(response.data)
+                console.log(hotels)
             } catch (error) {
                 console.error(error);
             }
@@ -37,6 +37,40 @@ const RoomResults = (props) => {
 
         fetchHotels();
     }, [props.names]);
+
+    const navi = useNavigate()
+
+    const reserve = async (roomId, price) => {
+        const rdata = {
+            roomId: roomId,
+            sDate: date[0].startDate,
+            eDate: date[0].endDate,
+            numAdults: numAdults,
+            id: localStorage.getItem('id'),
+            price: price,
+        }
+        console.log(rdata)
+
+        try {
+            const response = await fetch(`http://localhost:3001/reserve/${roomId}`, {
+             method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': `${localStorage.getItem('togken')}`
+              },
+              
+            });
+            const data = await response.json();
+            console.log('Reservation successful:', data);
+            // add code to handle a successful reservation, such as displaying a confirmation message
+          } catch (error) {
+            console.log(roomId)
+            console.error('Reservation failed:', error);
+            // add code to handle a failed reservation, such as displaying an error message
+          }
+        //navi('../Confirmation');
+    }
+
     return (
         <div className="bg-white">
             <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -49,36 +83,36 @@ const RoomResults = (props) => {
                         const extraAdultFee = extraAdults > 0 ? 30 * extraAdults * diffDays : 0;
                         const extraChildrenFee = 10 * numChildren * diffDays;
                         const totalPrice = basePrice + extraAdultFee + extraChildrenFee;
-                        return(
-                        <div key={product._id} className="group relative">
+                        return (
+                            <div key={product._id} className="group relative">
 
-                            <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
-                                <img
-                                    src={product.imageSrc}
-                                    alt={product.imageAlt}
-                                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                                />
-                            </div>
-                            <div className="mt-4 flex justify-between">
-                                <div>
-                                    <h4 className="text-sm text-gray-900">
-                                        <a href={product._id}>
-                                            <span aria-hidden="true" className="absolute inset-0" />
-                                            {product.name}
-                                        </a>
-                                    </h4>
-                                    <h3 className="mt-1 font-bold text-black-900">{product.info} Room</h3>
-                                    <h3 className="mt-1 font-bold text-black-900">
-                      {`€${totalPrice.toFixed(2)} for ${diffDays} nights`}
-                    </h3>
-                                    <button class="mt-1 bg-orange-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-1">
-                                        Reserve Room
-                                    </button>
+                                <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+                                    <img
+                                        src={product.imageSrc}
+                                        alt={product.imageAlt}
+                                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                                    />
                                 </div>
-                                <p className="text-sm font-medium text-gray-900">{product.location}</p>
+                                <div className="mt-4 flex justify-between">
+                                    <div>
+                                        {/* <h4 className="text-sm text-gray-900">
+                                            <a href={product._id}>
+                                                <span aria-hidden="true" className="absolute inset-0" />
+                                                {product.name}
+                                            </a>
+                                        </h4> */}
+                                        <h3 className="mt-1 font-bold text-black-900">{product.info} Room</h3>
+                                        <h3 className="mt-1 font-bold text-black-900">
+                                            {`€${totalPrice.toFixed(2)} for ${diffDays} nights`}
+                                        </h3>
+                                        <button onClick={()=> reserve(product._id, totalPrice)} class="mt-1 bg-orange-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-1">
+                                            Reserve Room
+                                        </button>
+                                    </div>
+                                    <p className="text-sm font-medium text-gray-900">{product.location}</p>
+                                </div>
                             </div>
-                        </div>
-                    );
+                        );
                     })}
                 </div>
             </div>

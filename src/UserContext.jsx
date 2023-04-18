@@ -21,6 +21,8 @@ const UserProvider = (props) => {
       setUser({ name: res.data.email });
       setUserName(res.data.email);
       localStorage.setItem("user", JSON.stringify({ email: res.data.email }));
+      localStorage.setItem("token", JSON.stringify(res.data.token));
+      localStorage.setItem("id", res.data.id );
     } catch (error) {
       console.error(error.message);
     }

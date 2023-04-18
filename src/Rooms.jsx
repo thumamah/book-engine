@@ -8,10 +8,10 @@ import { SearchContext } from "./SearchContext";
 import axios from "axios";
 export default function Rooms() {
   const location = useLocation();
-  const Destination = location.state.Destination;
+  //const Destination = location.state.Destination;
   const h = location.state.h;
   const numRooms = location.state.numRooms;
-  console.log(Destination)
+  //console.log(Destination)
   console.log(h)
   console.log(numRooms)
   //const [hotels, setHotels] = useState([]);

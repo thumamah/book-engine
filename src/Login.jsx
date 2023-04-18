@@ -23,7 +23,7 @@ export default function Login() {
         try {
             const response = await axios.post('http://localhost:3001/login', { email, password },
                 );
-            console.log(response.data.email);
+            console.log(response);
             login(email, password);
             console.log(email, password);
             nav("/")
