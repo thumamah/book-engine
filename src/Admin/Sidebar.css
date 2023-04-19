@@ -1,0 +1,30 @@
+.admin-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: midnightblue;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  .main-admin{
+    margin-left: 210px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    padding: 30px;
+  }
+  
+  /* a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  } */

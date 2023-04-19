@@ -12,6 +12,8 @@ import Contact from './Contact';
 import Rooms from './Rooms';
 import Confirmation from './Confirmation';
 import Profile from './Profile';
+import Users from './Admin/Users';
+import Dashboard from './Admin/Dashboard';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/Rooms" element={<Rooms/>}/>
         <Route path="/Confirmation" element={<Confirmation/>}/>
         <Route path="/Profile" element={<Profile/>}/>
+        <Route path="/Admin/Users" element={<Users/>}/>
+        <Route path="/Admin/Dashboard" element={<Dashboard/>}/>
       </Routes>
     </BrowserRouter>
     </SearchProvider>

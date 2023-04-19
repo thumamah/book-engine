@@ -24,10 +24,15 @@ export default function Login() {
             const response = await axios.post('http://localhost:3001/login', { email, password },
                 );
             console.log(response);
+            console.log(response.data.role)
             login(email, password);
             console.log(email, password);
+            if(response.data.role === "admin"){
+                nav("/Admin/Users")
+            }
+            else{
             nav("/")
-            
+            }
 
             // handle successful login here
         } catch (error) {
