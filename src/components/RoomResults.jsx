@@ -44,6 +44,9 @@ const RoomResults = (props) => {
     const navi = useNavigate()
 
     const reserve = async (roomId, price) => {
+        if(!cookies.token){
+            navi('../login')
+        }
         const rdata = {
             roomId: roomId,
             startDate: date[0].startDate,
@@ -51,6 +54,8 @@ const RoomResults = (props) => {
             numAdults: numAdults,
             id: localStorage.getItem('id'),
             totalPrice: price,
+            email:localStorage.getItem('user')
+
         }
         console.log(rdata)
         console.log(cookies.token)

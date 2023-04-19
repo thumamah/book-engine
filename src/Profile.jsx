@@ -1,7 +1,20 @@
 import React from 'react'
 import Navbar from './components/Navbar'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Profile() {
+
+    const [bookings, setBookings] = useState([]);
+
+    useEffect(() => {
+        // Make API request to fetch bookings for the logged-in user
+        axios.get(`http://localhost:3001/findBooking/${localStorage.getItem('id')}`).then((response) => {
+          setBookings(response.data.bookings);
+          console.log(response.data.bookings)
+        });
+        
+      }, [localStorage.getItem('id')]);
   return (
     <div>
       <Navbar/>
@@ -22,20 +35,27 @@ export default function Profile() {
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Name
+                                        Hotel
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Email
+                                        Room
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Edit
+                                        Check In
                                     </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                                    >
+                                        Check Out
+                                    </th>
+                                    
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
@@ -45,9 +65,12 @@ export default function Profile() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
+                                {bookings.map((booked)=>(
+
+                                
                                 <tr>
                                     <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        1
+                                        {booked._id}
                                     </td>
                                     <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                                         Jone Doe
@@ -60,9 +83,18 @@ export default function Profile() {
                                             className="text-green-500 hover:text-green-700"
                                             href="#"
                                         >
-                                            Edit
+                                            {new Date(booked.startDate).toLocaleDateString()}
                                         </a>
                                     </td>
+                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                        <a
+                                            className="text-red-500 hover:text-red-700"
+                                            href="#"
+                                        >
+                                            {new Date(booked.endDate).toLocaleDateString()}
+                                        </a>
+                                    </td>
+                                    
                                     <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                         <a
                                             className="text-red-500 hover:text-red-700"
@@ -72,60 +104,7 @@ export default function Profile() {
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        2
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        Jone Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        jonne62@gmail.com
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-green-500 hover:text-green-700"
-                                            href="#"
-                                        >
-                                            Edit
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-red-500 hover:text-red-700"
-                                            href="#"
-                                        >
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        3
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        Jone Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        jonne62@gmail.com
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-green-500 hover:text-green-700"
-                                            href="#"
-                                        >
-                                            Edit
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-red-500 hover:text-red-700"
-                                            href="#"
-                                        >
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
+                             ))}
                             </tbody>
                         </table>
                     </div>
