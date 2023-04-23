@@ -27,9 +27,9 @@ const Sidebar = () => {
                         </li>
                     </NavLink>
 
-                    <NavLink to={"/admin/Hotels"}>
+                    <NavLink to={"/Admin/AddHotels/"}>
                         <li>
-                            Hotels
+                            Add Hotels
                         </li>
                     </NavLink>
 

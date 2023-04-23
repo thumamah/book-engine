@@ -34,7 +34,7 @@ export default function Register() {
                     <div>
                         <img
                             className="mx-auto h-12 w-auto"
-                            src={img_logo}
+                            src="https://lh3.googleusercontent.com/drive-viewer/AFGJ81oe7z_4_3oXtT6R6DBHrcii2bBSjaIEUkY19ZwM-qqE2eGnNMmsoI45tp2fg5ilj5daOSCgryWSWmr3ZvL2rDZIfyHd6A=s1600"
                             alt="Your Company"
                         />
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">

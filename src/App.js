@@ -14,6 +14,7 @@ import Confirmation from './Confirmation';
 import Profile from './Profile';
 import Users from './Admin/Users';
 import Dashboard from './Admin/Dashboard';
+import AddHotels from './Admin/AddHotels';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/Profile" element={<Profile/>}/>
         <Route path="/Admin/Users" element={<Users/>}/>
         <Route path="/Admin/Dashboard" element={<Dashboard/>}/>
+        <Route path="/Admin/AddHotels" element={<AddHotels/>}/>
       </Routes>
     </BrowserRouter>
     </SearchProvider>
