@@ -57,8 +57,8 @@ const HotelResults = (props) => {
               <div key={product._id} className="group relative">
                 <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
                   <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
+                    src={product.image}
+                    alt={product.image}
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
                 </div>

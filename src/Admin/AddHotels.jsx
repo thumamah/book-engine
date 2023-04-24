@@ -13,9 +13,17 @@ const AddHotels = () => {
   const nav = useNavigate();
 
   const addHotel = async (e) => {
+    
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('location', location);
+    formData.append('info', info);
+    formData.append('image', image);
+    
     try {
-      const response = await axios.post('http://localhost:3001/addHotel', { name, location, info, image });
+      console.log(formData)
+      const response = await axios.post('http://localhost:3001/addHotel',  formData );
       console.log(response.data);
       nav("/Admin/Dashboard")
       // handle successful registration here
@@ -23,6 +31,11 @@ const AddHotels = () => {
       console.error(error);
       // handle registration error here
     }
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+    console.log(e.target.files)
   };
   return (
     <div className='main-admin'>
@@ -38,7 +51,7 @@ const AddHotels = () => {
             </h2>
 
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form onSubmit={addHotel} className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
 
@@ -53,7 +66,7 @@ const AddHotels = () => {
                   name="Name"
                   type="text"
                   autoComplete="email"
-                  required
+                  
                   className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Name"
                 />
@@ -69,7 +82,7 @@ const AddHotels = () => {
                   id="email-address"
                   name="email"
                   type="text"
-                  required
+                  
                   className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Location"
                 />
@@ -85,7 +98,7 @@ const AddHotels = () => {
                   id="password"
                   name="password"
                   type="text"
-                  required
+                  
                   className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Info"
                 />
@@ -97,11 +110,11 @@ const AddHotels = () => {
                   Image Link
                 </label>
                 <input
-                
+
                   type="file"
                   name="image"
-                  //value={image}
-                  onChange={(e) => setImage(e.target.files)}
+                  // value={image}
+                  onChange={handleImageChange}
                 />
 
               </div>
@@ -112,13 +125,10 @@ const AddHotels = () => {
 
             <div>
               <button
-                onClick={addHotel}
+                // onClick={addHotel}
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                {/* <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
-                                </span> */}
                 Add Hotel
               </button>
             </div>
