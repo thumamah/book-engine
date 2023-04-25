@@ -33,9 +33,9 @@ const Sidebar = () => {
                         </li>
                     </NavLink>
 
-                    <NavLink to={"/admin/rooms"}>
+                    <NavLink to={"/Admin/AddRoom"}>
                         <li>
-                            Rooms
+                            Add Rooms
                         </li>
                     </NavLink>
 
