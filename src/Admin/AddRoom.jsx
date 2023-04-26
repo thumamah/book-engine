@@ -6,26 +6,27 @@ import { useNavigate } from 'react-router-dom';
 
 const AddRoom = () => {
 
-    const [name, setName] = useState('');
-    const [location, setLocation] = useState('');
+    const [number, setNumber] = useState('');
+    const [price, setPrice] = useState('');
     const [info, setInfo] = useState('');
     const [image, setImage] = useState('');
+
     const [hotels, setHotels] = useState([]);
-    const [shotels, ssetHotels] = useState('');
+    const [hotelId, sethotelId] = useState('');
     const nav = useNavigate();
 
-    const addHotel = async (e) => {
+    const addRoom_func = async (e) => {
 
         e.preventDefault();
         const formData = new FormData();
-        formData.append('name', name);
-        formData.append('location', location);
+        formData.append('number', number);
+        formData.append('price', price);
         formData.append('info', info);
         formData.append('image', image);
 
         try {
             console.log(formData)
-            const response = await axios.post('http://localhost:3001/addHotel', formData);
+            const response = await axios.post(`http://localhost:3001/addRoom/${hotelId}`, formData);
             console.log(response.data);
             nav("/Admin/Dashboard")
             // handle successful registration here
@@ -46,13 +47,14 @@ const AddRoom = () => {
             const results = await axios.get('http://localhost:3001/findAllHotel/')
             setHotels(results.data)
             console.log(results.data)
+            console.log(hotelId)
         } catch (error) {
             console.log(error)
         }
         };
         getHotels();
 
-    },[]);
+    },[hotelId]);
 return (
     <div className='main-admin'>
         <Sidebar />
@@ -67,16 +69,16 @@ return (
                     </h2>
 
                 </div>
-                <form onSubmit={addHotel} className="mt-8 space-y-6">
+                <form onSubmit={addRoom_func} className="mt-8 space-y-6">
                     <input type="hidden" name="remember" defaultValue="true" />
                     <div className="-space-y-px rounded-md shadow-sm">
 
                     <div>
-                           <select name="" id="" value={shotels} onChange={(e) => ssetHotels(e.target.value)}>
+                           <select name="" id="" value={hotelId} onChange={(e) => sethotelId(e.target.value)}>
                             <option value="">Select Hotel</option>
                             {hotels.map((hotel)=>(
-                                <option key={hotel._id} value={hotel._id}>
-                                    {hotel.name}
+                                <option key={hotel._id} value={hotel._id} onChange={(e) => sethotelId(e.target.value)}>
+                                    {hotel.name} - {hotel.location}
                                 </option>
                             ))}
                            </select>
@@ -88,8 +90,8 @@ return (
                                 Number
                             </label>
                             <input
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={number}
+                                onChange={(e) => setNumber(e.target.value)}
                                 id="Name"
                                 name="Name"
                                 type="text"
@@ -103,8 +105,8 @@ return (
                                 Price
                             </label>
                             <input
-                                value={location}
-                                onChange={(e) => setLocation(e.target.value)}
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
                                 id="email-address"
                                 name="email"
                                 type="text"
@@ -150,7 +152,7 @@ return (
 
                     <div>
                         <button
-                            // onClick={addHotel}
+                            
                             type="submit"
                             className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >

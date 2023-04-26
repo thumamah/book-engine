@@ -30,7 +30,7 @@ const RoomResults = (props) => {
             try {
                 console.log(props.names)
                 const response = await axios.get(`http://localhost:3001/findRoom/${props.names}?startDate=${date[0].startDate}&endDate=${date[0].endDate}`);
-                setHotels(response.data.availableRooms);
+                setHotels(response.data.roomsWithImages);
                 console.log(response.data)
                 console.log(hotels)
             } catch (error) {
@@ -96,8 +96,8 @@ const RoomResults = (props) => {
 
                                 <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
                                     <img
-                                        src={product.imageSrc}
-                                        alt={product.imageAlt}
+                                        src={product.image}
+                                        alt={product.image}
                                         className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                                     />
                                 </div>
