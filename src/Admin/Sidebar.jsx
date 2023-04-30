@@ -21,7 +21,7 @@ const Sidebar = () => {
                         </li>
                     </NavLink>
 
-                    <NavLink to={"/admin/bookings"}>
+                    <NavLink to={"/Admin/Bookings"}>
                         <li>
                             Bookings
                         </li>

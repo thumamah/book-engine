@@ -16,6 +16,7 @@ import Users from './Admin/Users';
 import Dashboard from './Admin/Dashboard';
 import AddHotels from './Admin/AddHotels';
 import AddRoom from './Admin/AddRoom';
+import Bookings from './Admin/Bookings';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/Admin/Dashboard" element={<Dashboard/>}/>
         <Route path="/Admin/AddHotels" element={<AddHotels/>}/>
         <Route path="/Admin/AddRoom" element={<AddRoom/>}/>
+        <Route path="/Admin/Bookings" element={<Bookings/>}/>
       </Routes>
     </BrowserRouter>
     </SearchProvider>
