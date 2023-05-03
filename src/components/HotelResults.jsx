@@ -40,9 +40,9 @@ const HotelResults = (props) => {
     fetchHotels();
   }, []);
   console.log(hotels.length)
-  const search = (h) => {
+  const search = (h, name) => {
     console.log(h)
-    navi("../Rooms", { state: { Destination, h, numRooms, numAdults, numChildren, date } });
+    navi("../Rooms", { state: { Destination, h, numRooms, numAdults, numChildren, date, name } });
   }
   console.log(search)
 
@@ -86,7 +86,7 @@ const HotelResults = (props) => {
 
               </div>
 
-              <button onClick={() => search(product._id)} class="bg-orange-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-1">
+              <button onClick={() => search(product._id, product.name)} class="bg-orange-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-1">
                 Check Room Availability
               </button>
             </>

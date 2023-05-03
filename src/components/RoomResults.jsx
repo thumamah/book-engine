@@ -11,11 +11,12 @@ const RoomResults = (props) => {
     const [cookies, setCookie] = useCookies(['token']);
 
     const [Destination, setDestination] = useState(loc.state.Destination);
+    const [name, setName] = useState(loc.state.name);
     const [numRooms, setNumRooms] = useState(loc.state.numRooms);
     const [numAdults, setNumAdults] = useState(loc.state.numAdults);
     const [numChildren, setNumChildren] = useState(loc.state.numChildren);
     const [date, setDate] = useState(loc.state.date);
-    // console.log(Destination)
+    console.log(name)
     // console.log(numRooms)
     // console.log(numAdults)
     // console.log(numChildren)
@@ -54,7 +55,9 @@ const RoomResults = (props) => {
             numAdults: numAdults,
             id: localStorage.getItem('id'),
             totalPrice: price,
-            email:localStorage.getItem('user')
+            email:localStorage.getItem('user'),
+            hotelName: name,
+            HotelId: props.names
 
         }
         console.log(rdata)
