@@ -17,6 +17,7 @@ import Dashboard from './Admin/Dashboard';
 import AddHotels from './Admin/AddHotels';
 import AddRoom from './Admin/AddRoom';
 import Bookings from './Admin/Bookings';
+import HotelAnalysis from './Admin/HotelAnalysis';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/Admin/AddHotels" element={<AddHotels/>}/>
         <Route path="/Admin/AddRoom" element={<AddRoom/>}/>
         <Route path="/Admin/Bookings" element={<Bookings/>}/>
+        <Route path="/Admin/HotelAnalysis" element={<HotelAnalysis/>}/>
       </Routes>
     </BrowserRouter>
     </SearchProvider>

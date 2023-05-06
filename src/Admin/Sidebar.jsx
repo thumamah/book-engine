@@ -39,7 +39,7 @@ const Sidebar = () => {
                         </li>
                     </NavLink>
 
-                    <NavLink to={"/admin/settings"}>
+                    <NavLink to={"/Admin/HotelAnalysis"}>
                         <li>
                             Hotel Analysis
                         </li>
