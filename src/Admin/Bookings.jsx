@@ -2,8 +2,20 @@ import React from 'react'
 import Sidebar from './Sidebar';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Bookings = () => {
+
+    const [cookies, setCookie] = useCookies(['role']);
+    const navi = useNavigate()
+    if(cookies.role==="admin"){
+        console.log("good")
+    }
+    else{
+        navi('../')
+        console.log("bad")
+    }
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {

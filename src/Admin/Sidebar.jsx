@@ -9,13 +9,13 @@ const Sidebar = () => {
         <div className='sidebar'>
             <nav className='admin-nav'>
                 <ul>
-                    <NavLink to={"/Admin/Dashboard/"}>
+                    <NavLink to={"/Admin/Dashboard"}>
                         <li>
                             Dashboard
                         </li>
                     </NavLink>
 
-                    <NavLink to={"/admin/users"}>
+                    <NavLink to={"/Admin/Users"}>
                         <li>
                             Users
                         </li>
@@ -27,7 +27,7 @@ const Sidebar = () => {
                         </li>
                     </NavLink>
 
-                    <NavLink to={"/Admin/AddHotels/"}>
+                    <NavLink to={"/Admin/AddHotels"}>
                         <li>
                             Add Hotels
                         </li>

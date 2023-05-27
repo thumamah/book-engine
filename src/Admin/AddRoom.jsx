@@ -3,8 +3,19 @@ import Sidebar from './Sidebar'
 import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const AddRoom = () => {
+
+    const [cookies, setCookie] = useCookies(['role']);
+    const navi = useNavigate()
+    if(cookies.role==="admin"){
+        console.log("good")
+    }
+    else{
+        navi('../')
+        console.log("bad")
+    }
 
     const [number, setNumber] = useState('');
     const [price, setPrice] = useState('');

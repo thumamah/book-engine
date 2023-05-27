@@ -48,6 +48,7 @@ const RoomResults = (props) => {
         if(!cookies.token){
             navi('../login')
         }
+        else{
         const rdata = {
             roomId: roomId,
             startDate: date[0].startDate,
@@ -79,6 +80,7 @@ const RoomResults = (props) => {
             console.error('Reservation failed:', error);
             // add code to handle a failed reservation, such as displaying an error message
           }
+        }
         
     }
 

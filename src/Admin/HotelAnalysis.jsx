@@ -2,12 +2,26 @@ import React from 'react'
 import './Sidebar.css'
 import Sidebar from './Sidebar'
 import { useState, useEffect } from "react";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 const HotelAnalysis = () => {
+
+    const [cookies, setCookie] = useCookies(['role']);
+    const navi = useNavigate()
+    if(cookies.role==="admin"){
+        console.log("good")
+    }
+    else{
+        navi('../')
+        console.log("bad")
+    }
+    
+    
     
 
     const [date, setDate] = useState(new Date());
@@ -29,13 +43,18 @@ const HotelAnalysis = () => {
         getHotels();
 
     }, [hotelId]);
-    
+
     const OccupancyRatesFunction = async (e) => {
         e.preventDefault();
         const formattedDate = date.toISOString().split("T")[0];
+        const startDate = new Date(date);
+        startDate.setUTCHours(0, 0, 0, 0); // Set start time to 00:00:00 in UTC
+        const endDate = new Date(date);
+        endDate.setUTCHours(23, 59, 59, 999); // Set end time to 23:59:59.999 in UTC
+
         console.log(formattedDate)
         try {
-            const response = await axios.get(`http://localhost:3001/rate/${hotelId}?date=${formattedDate}`);
+            const response = await axios.get(`http://localhost:3001/rate/${hotelId}?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`);
             setOccupancyRate(response.data)
             console.log(response)
         } catch (error) {
@@ -44,7 +63,9 @@ const HotelAnalysis = () => {
     };
 
     console.log(occupancyRate)
+
     const userData = {
+
         labels: occupancyRate.map((data) => data.date),
         datasets: [
             {
@@ -59,9 +80,14 @@ const HotelAnalysis = () => {
                 ],
                 borderColor: "black",
                 borderWidth: 2,
+               
+                
             },
+         
         ],
-    };
+        
+
+     };
     return (
 
         <div className='main-admin'>
@@ -125,7 +151,9 @@ const HotelAnalysis = () => {
                 </div>
             </div>
         </div>
+        
     )
+                                    
 }
 
 export default HotelAnalysis

@@ -3,8 +3,29 @@ import Navbar from './components/Navbar'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import img_logo from './components/log.png';
 import { NavLink } from 'react-router-dom'
+import { useState } from "react";
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export default function Contact() {
+
+  const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+    const nav = useNavigate();
+
+    const handleContact = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3001/contact', { name, email, message });
+            console.log(response.data);
+            nav("/")
+            // handle successful registration here
+        } catch (error) {
+            console.error(error);
+            // handle registration error here
+        }
+    };
   return (
     <div>
       <Navbar />
@@ -29,6 +50,8 @@ export default function Contact() {
                   Email address
                 </label>
                 <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                   id="email-address"
                   name="email"
                   type="email"
@@ -44,6 +67,8 @@ export default function Contact() {
                   Name
                 </label>
                 <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                   id="Name"
                   name="Name"
                   type="Name"
@@ -57,9 +82,11 @@ export default function Contact() {
               <br />
               <div>
                 <label htmlFor="message" className="sr-only">
-                  Name
+                  message
                 </label>
                 <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                   id="message"
                   
                   name="message"
@@ -75,6 +102,7 @@ export default function Contact() {
 
             <div>
               <button
+              onClick={handleContact}
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
