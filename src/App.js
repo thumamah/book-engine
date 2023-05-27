@@ -18,6 +18,7 @@ import AddHotels from './Admin/AddHotels';
 import AddRoom from './Admin/AddRoom';
 import Bookings from './Admin/Bookings';
 import HotelAnalysis from './Admin/HotelAnalysis';
+import ResetPass from './ResetPass';
 
 function App() {
   return (
@@ -35,12 +36,14 @@ function App() {
         <Route path="/Rooms" element={<Rooms/>}/>
         <Route path="/Confirmation" element={<Confirmation/>}/>
         <Route path="/Profile" element={<Profile/>}/>
+        <Route path="/reset-password" element={<ResetPass/>}/>
         <Route path="/Admin/Users" element={<Users/>}/>
         <Route path="/Admin/Dashboard" element={<Dashboard/>}/>
         <Route path="/Admin/AddHotels" element={<AddHotels/>}/>
         <Route path="/Admin/AddRoom" element={<AddRoom/>}/>
         <Route path="/Admin/Bookings" element={<Bookings/>}/>
         <Route path="/Admin/HotelAnalysis" element={<HotelAnalysis/>}/>
+
       </Routes>
     </BrowserRouter>
     </SearchProvider>
