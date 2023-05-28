@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Forgot() {
 
     const [email, setEmail] = useState('');
+    const [errors, setErrors] = useState('');
 
     const nav = useNavigate();
 
@@ -22,6 +23,7 @@ export default function Forgot() {
             // handle successful registration here
         } catch (error) {
             console.error(error);
+            setErrors(error.response.data.message)
             // handle registration error here
         }
     };
@@ -61,6 +63,11 @@ export default function Forgot() {
                                 />
                             </div>
                             <br />
+                            <div className="flex items-center font-bold text-red-400 justify-between">
+
+                                {errors}
+
+                            </div>
 
                         </div>
 
@@ -68,7 +75,7 @@ export default function Forgot() {
 
                         <div>
                             <button
-                            onClick={handleReset}
+                                onClick={handleReset}
                                 type="submit"
                                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >

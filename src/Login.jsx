@@ -16,6 +16,7 @@ export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState('');
     
 
     const handleLogin = async (e) => {
@@ -24,6 +25,7 @@ export default function Login() {
             const response = await axios.post('http://localhost:3001/login', { email, password },
                 );
             console.log(response);
+            console.log(response.data.message);
             console.log(response.data.role)
             login(email, password);
             console.log(email, password);
@@ -36,9 +38,11 @@ export default function Login() {
 
             // handle successful login here
         } catch (error) {
+            
             console.error("error");
             console.log(email)
-            console.error(error);
+            console.error(error.response.data.message);
+            setErrors(error.response.data.message)
 
             // handle login error here
         }
@@ -60,7 +64,7 @@ export default function Login() {
                         </h2>
 
                     </div>
-                    <form className="mt-8 space-y-6" action="#" method="POST">
+                    <form className="mt-8 space-y-6" onSubmit={handleLogin}>
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="-space-y-px rounded-md shadow-sm">
                             <div>
@@ -99,7 +103,15 @@ export default function Login() {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center font-bold text-red-400 justify-between">
+
+                            {errors}
+
+                        </div>
+
+                        <div className="flex items-center text-blue-900 justify-between">
+
+                          
 
 
                             <div className="text-sm">
@@ -113,9 +125,7 @@ export default function Login() {
 
                         <div>
                             <button
-                                onClick={handleLogin}
-
-
+                                
                                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">

@@ -74,7 +74,7 @@ const Head = () => {
                             type="text"
                             placeholder="Destination"
                             className="headerSearchInput"
-                            
+                            required
                             onChange={(e) => setDestination(e.target.value)}
                         />
                     </div>
