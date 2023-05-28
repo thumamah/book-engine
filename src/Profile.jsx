@@ -14,7 +14,9 @@ export default function Profile() {
         try {
             const response = await axios.post('http://localhost:3001/deleteBooking', { bookId });
             console.log(response.data);
-
+            // updating the booking state by removing the booking that has just been deleted
+            // check which booking has been deleted and removes that.
+            setBookings((Bookings) => Bookings.filter((booked) => booked._id !== bookId));
             // handle successful registration here
         } catch (error) {
             console.error(error);
