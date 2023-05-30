@@ -11,6 +11,7 @@ export default function Forgot() {
 
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState('');
+    const [success, setSuccess] = useState('');
 
     const nav = useNavigate();
 
@@ -19,7 +20,8 @@ export default function Forgot() {
         try {
             const response = await axios.post('http://localhost:3001/reset', { email });
             console.log(response.data);
-            nav("/")
+            setSuccess(response.data.message)
+            
             // handle successful registration here
         } catch (error) {
             console.error(error);
@@ -63,9 +65,9 @@ export default function Forgot() {
                                 />
                             </div>
                             <br />
-                            <div className="flex items-center font-bold text-red-400 justify-between">
+                            <div className="flex items-center font-bold text-blue-400 justify-between">
 
-                                {errors}
+                                {errors || success}
 
                             </div>
 
