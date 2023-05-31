@@ -58,7 +58,7 @@ export default function Profile() {
                                             scope="col"
                                             className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                         >
-                                            Room
+                                            Price
                                         </th>
                                         <th
                                             scope="col"
@@ -127,10 +127,11 @@ export default function Profile() {
                                                 {booked._id}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                                Jone Doe
+                                            {booked.hotelName}
+                                            
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                                jonne62@gmail.com
+                                            {booked.totalPrice}
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                                 <a className="text-green-500 hover:text-green-700" href="#">

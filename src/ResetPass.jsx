@@ -11,6 +11,8 @@ export default function ResetPass() {
 
     const [password, setPassword] = useState('');
     const [resetToken, setResetToken] = useState('');
+    const [errors, setErrors] = useState('');
+    const [success, setSuccess] = useState('');
 
     const location = useLocation();
     const nav = useNavigate();
@@ -19,18 +21,20 @@ export default function ResetPass() {
         const searchParams = new URLSearchParams(location.search);
         const reset = searchParams.get('token');
         setResetToken(reset)
-      }, [location]);
+    }, [location]);
 
     const handleReset = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/changePass', { password, resetToken });
             console.log(response.data);
-            nav("/")
+            setSuccess(response.data.message)
             
+
         } catch (error) {
             console.error(error);
-            
+            setErrors(error.response.data.message)
+
         }
     };
     return (
@@ -94,6 +98,11 @@ export default function ResetPass() {
 
                         </div> */}
 
+                        <div className="flex items-center font-bold text-blue-400 justify-between">
+                            {errors || success}
+                        </div>
+                        
+
 
 
                         <div>
@@ -105,7 +114,7 @@ export default function ResetPass() {
                                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                                     <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                                 </span>
-                                Send Email
+                                Change Password
                             </button>
                         </div>
                     </form>
