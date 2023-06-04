@@ -122,8 +122,8 @@ const HotelAnalysis = () => {
                                 <select name="" id="" value={hotelId} onChange={(e) => sethotelId(e.target.value)}>
                                     <option value="">Select Hotel</option>
                                     {hotels.map((hotel) => (
-                                        <option key={hotel._id} value={hotel._id} onChange={(e) => sethotelId(e.target.value)}>
-                                            {hotel.name} - {hotel.location}
+                                        <option key={hotel._doc._id} value={hotel._doc._id} onChange={(e) => sethotelId(e.target.value)}>
+                                            {hotel._doc.name} - {hotel._doc.location}
                                         </option>
                                     ))}
                                 </select>

@@ -1,23 +1,17 @@
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import img_logo from '../components/log.png';
 import { Link } from "react-router-dom";
 
 
+// defining the nav names and links
 const navigation = [
   { name: 'Home', href: '/', },
   { name: 'About', href: '/About', },
   { name: 'Contact', href: '/Contact', },
-]
-
-const log_navigation = [
-  { name: 'Login', href: '/login', },
-  { name: 'Register', href: '/Register', },
-
 ]
 
 function classNames(...classes) {
@@ -26,33 +20,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
 
-  const nav = useNavigate();
-
   const { user, login, logout } = useContext(UserContext);
-  const [userName, setUserName] = useState('');
-
-  const logout_fun = async () => {
-    try {
-      await axios.post('http://localhost:3001/logout');
-      logout();
-      // nav("/")
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  const profile_button = async () => {
-      nav("../Profile")
-  };
-
-  // useEffect(() => {
-  //   if (user) {
-  //     setUserName(user.email);
-  //   } else {
-  //     setUserName('');
-  //   }
-  // }, [user]);
-
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -73,14 +41,10 @@ export default function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
+
                   <img
                     className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src={img_logo}
                     alt="Your Company"
                   />
                 </div>
@@ -107,30 +71,42 @@ export default function Navbar() {
 
 
               </div>
+              {/* if user is logged in then show the logout and profile button else show the
+                  login and register button
+              */}
               {user ? (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                   <Link to={"../Profile"}><button
-                      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
+                  {/* if admin is logged in then link to admin profile else user profile */}
+                  {user.role === "admin" ? (
+                    <Link to={"./Admin/Dashboard"}>
+                      <button
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 
-                      {user.email}
+                        {user.role} Profile
 
-                    </button>
+                      </button>
                     </Link>
+                  ) : (
+                    <Link to={"../Profile"}>
+                      <button
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
+
+                        {user.role} Profile
+
+                      </button>
+                    </Link>
+                  )}
+
                   <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 
-                   
-                    <NavLink
 
-                      onClick={logout_fun}
+                    <NavLink
+                      key={"Logout"}
+                      to={"/Logout"}
                     >Logout
                     </NavLink>
                   </button>
-
-
-
-
-
 
                 </div>
               ) : (

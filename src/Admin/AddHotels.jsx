@@ -5,51 +5,59 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
-
+// component to add hotels
 const AddHotels = () => {
 
-  const [cookies, setCookie] = useCookies(['role']);
-    const navi = useNavigate()
-    if(cookies.role==="admin"){
-        console.log("good")
-    }
-    else{
-        navi('../')
-        console.log("bad")
-    }
 
+  const [cookies, setCookie] = useCookies(['role']);
+  const navi = useNavigate()
+  if (cookies.role === "admin") {
+    console.log("good")
+  }
+  else {
+    navi('../')
+    console.log("bad")
+  }
+
+  // use state to save hotel details
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [info, setInfo] = useState('');
   const [image, setImage] = useState('');
-  const nav = useNavigate();
-
+  const [errors, setErrors] = useState('');
+  // function which makes requests to add hotel endpoint
   const addHotel = async (e) => {
-    
+
     e.preventDefault();
+    // preparing form data to be sent to the server
+    // by assigning the values to the fileds
     const formData = new FormData();
     formData.append('name', name);
     formData.append('location', location);
     formData.append('info', info);
     formData.append('image', image);
-    
+
     try {
       console.log(formData)
-      const response = await axios.post('http://localhost:3001/addHotel',  formData );
-      console.log(response.data);
-      nav("/Admin/Dashboard")
-      // handle successful registration here
+      const response = await axios.post('http://localhost:3001/addHotel', formData);
+      console.log(response);
+      setErrors(response.statusText)
+
     } catch (error) {
       console.error(error);
-      // handle registration error here
+
+
     }
   };
 
+  // function to handle the uplaoding of images
+  // extract the first file in the array which is the image uploaded by the admin
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
     console.log(e.target.files)
   };
   return (
+    // form to handle uploading of hotel details
     <div className='main-admin'>
       <Sidebar />
       Hello, add hotels
@@ -61,6 +69,7 @@ const AddHotels = () => {
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Add Hotels
             </h2>
+
 
           </div>
           <form onSubmit={addHotel} className="mt-8 space-y-6">
@@ -78,7 +87,7 @@ const AddHotels = () => {
                   name="Name"
                   type="text"
                   autoComplete="email"
-                  
+
                   className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Name"
                 />
@@ -94,7 +103,7 @@ const AddHotels = () => {
                   id="email-address"
                   name="email"
                   type="text"
-                  
+
                   className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Location"
                 />
@@ -110,7 +119,7 @@ const AddHotels = () => {
                   id="password"
                   name="password"
                   type="text"
-                  
+
                   className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Info"
                 />
@@ -144,6 +153,10 @@ const AddHotels = () => {
                 Add Hotel
               </button>
             </div>
+
+            <h2 className="text-center text-3xl font-bold tracking-tight text-green-400">
+              {errors}
+            </h2>
           </form>
         </div>
       </div>

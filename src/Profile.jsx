@@ -6,13 +6,11 @@ import axios from "axios";
 export default function Profile() {
 
     const [bookings, setBookings] = useState([]);
-    //const [bookId, setBookId] = useState('');
 
-    //console.log(bookId)
-    const handleBookingDelete = async (bookId) => {
+    const handleBookingDelete = async (bookId, endDate) => {
         console.log(bookId)
         try {
-            const response = await axios.post('http://localhost:3001/deleteBooking', { bookId });
+            const response = await axios.post('http://localhost:3001/deleteBooking', { bookId, endDate });
             console.log(response.data);
             // updating the booking state by removing the booking that has just been deleted
             // check which booking has been deleted and removes that.
@@ -33,6 +31,7 @@ export default function Profile() {
 
     }, [localStorage.getItem('id')]);
     return (
+        // used tailwind css table to display all the bookings
         <div>
             <Navbar />
             <div className="flex flex-col">
@@ -145,7 +144,7 @@ export default function Profile() {
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                                 <button
-                                                    onClick={() => handleBookingDelete(booked._id)} // Move setBookId outside the loop
+                                                    onClick={() => handleBookingDelete(booked._id, booked.endDate)} // Move setBookId outside the loop
                                                     type="submit"
                                                     className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                 >

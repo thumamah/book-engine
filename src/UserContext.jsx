@@ -2,27 +2,34 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-
+// creating context using the createContext function
 export const UserContext = createContext();
 
 const UserProvider = (props) => {
-  const [user, setUser] = useState(null);
-  const [userName, setUserName] = useState('');
 
+  // using a use state hook to save the user details
+  // initially it'll be null as user is not logged in the start.
+  const [user, setUser] = useState(null);
+
+  // using the use effect hook to allow immediate changes when ever
+  // the dependency argument changes.
   useEffect(() => {
-    // Check if user is stored in local storage
+    // Checking for user data in local storage
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
+      // setting the user data
       setUser(JSON.parse(storedUser));
     }
   }, [user]);
 
+  // login function making request to the endpoint
   const login = async (email, password) => {
     try {
       const res = await axios.post("http://localhost:3001/login", { email, password });
+      // setting the user data from the response
       setUser({ name: res.data.email });
-      setUserName(res.data.email);
-      localStorage.setItem("user", JSON.stringify({ email: res.data.email }));
+      // we need to set the data to the local storage and cookies for later use
+      localStorage.setItem("user", JSON.stringify({ email: res.data.email, role: res.data.role }));
       localStorage.setItem("role", JSON.stringify(res.data.role ));
       localStorage.setItem("token", JSON.stringify(res.data.token));
       Cookies.set("token", res.data.token);
@@ -33,6 +40,7 @@ const UserProvider = (props) => {
     }
   };
 
+  // logout function to clear out cookies and local storage
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
@@ -44,6 +52,8 @@ const UserProvider = (props) => {
   };
 
   return (
+    // passing all the values and functions to use it in other files
+    // which provide context values to all its child components
     <UserContext.Provider value={{ user, login, logout }}>
       {props.children}
     </UserContext.Provider>

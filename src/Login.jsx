@@ -7,48 +7,50 @@ import img_logo from './components/log.png';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { UserContext } from './UserContext';
 
-
-
+// component for login
 export default function Login() {
+    // use context API
     const { user, login } = useContext(UserContext);
     const nav = useNavigate();
-    
 
+    // use state to save user provide details and errors
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState('');
-    
 
+
+    // function that makes requests to login endpoint
+    // and passing the user email and password
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/login', { email, password },
-                );
+            );
             console.log(response);
             console.log(response.data.message);
             console.log(response.data.role)
             login(email, password);
             console.log(email, password);
-            if(response.data.role === "admin"){
+            // if its admin then redirect it to the admin portal else home
+            if (response.data.role === "admin") {
                 nav("/Admin/Users")
             }
-            else{
-            nav("/")
+            else {
+                nav("/")
             }
 
-            // handle successful login here
         } catch (error) {
-            
+
             console.error("error");
             console.log(email)
             console.error(error.response.data.message);
+            // setting the errors
             setErrors(error.response.data.message)
-
-            // handle login error here
         }
-        
+
     }
     return (
+        // displaying the login form using tailwind css
         <div>
             <Navbar />
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -111,9 +113,6 @@ export default function Login() {
 
                         <div className="flex items-center text-blue-900 justify-between">
 
-                          
-
-
                             <div className="text-sm">
                                 <NavLink
                                     key={"forgot"}
@@ -125,7 +124,7 @@ export default function Login() {
 
                         <div>
                             <button
-                                
+
                                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -133,7 +132,6 @@ export default function Login() {
                                 </span>
                                 Sign in
                             </button>
-                            
                         </div>
                     </form>
                 </div>

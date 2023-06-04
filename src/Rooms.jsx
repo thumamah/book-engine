@@ -1,43 +1,20 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import RoomResults from './components/RoomResults';
-import { useEffect, useState } from "react";
-import { useContext } from "react";
 import { useLocation } from 'react-router-dom';
-import { SearchContext } from "./SearchContext";
-import axios from "axios";
 export default function Rooms() {
+  // using location hook to access current state object to access hotel id
+  // which came from the hotel component
+  // this id is used to find to rooms of the selected hotel
   const location = useLocation();
-  //const Destination = location.state.Destination;
-  const h = location.state.h;
-  const numRooms = location.state.numRooms;
-  //console.log(Destination)
-  console.log(h)
-  console.log(numRooms)
-  //const [hotels, setHotels] = useState([]);
-  //const [Destination, setDestination] = useState(loc.state.Destination);
-
-  // useEffect(() => {
-  //   const fetchHotels = async () => {
-  //     try {
-  //       const response = await axios.get(`http://localhost:3001/findHotel/${Destination}`);
-  //       setHotels(response.data);
-  //       console.log()
-  //       console.log(response)
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchHotels();
-  // }, [Destination]);
+  const hotelId = location.state.hotelId;
+  console.log(hotelId)
   return (
     <div>
-
       <Navbar />
-      <RoomResults names={h}
+      {/* passing the hotel id to room result component */}
+      <RoomResults hotelId={hotelId}
       />
-      
     </div>
   )
 }

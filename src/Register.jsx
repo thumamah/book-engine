@@ -5,30 +5,41 @@ import img_logo from './components/log.png';
 import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+// import { LockClosedIcon, EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 
 export default function Register() {
 
+    // use state to save the user registeration info and handling errors
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState('');
+    //const [showPassword, setShowPassword] = useState(false);
     const nav = useNavigate();
 
+    // making requests to the register endpoint
+    // passing in all the data with request to register user
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/register', { name, email, password });
             console.log(response.data);
             nav("/")
-            // handle successful registration here
+
         } catch (error) {
             console.error(error);
+            // setting the error message
             setErrors(error.response.data.message)
-            // handle registration error here
+
         }
     };
 
+    // const togglePasswordVisibility = () => {
+    //     setShowPassword(!showPassword);
+    //   };
+
     return (
+        // form for registering 
         <div>
             <Navbar />
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -36,7 +47,7 @@ export default function Register() {
                     <div>
                         <img
                             className="mx-auto h-12 w-auto"
-                            src="https://lh3.googleusercontent.com/drive-viewer/AFGJ81oe7z_4_3oXtT6R6DBHrcii2bBSjaIEUkY19ZwM-qqE2eGnNMmsoI45tp2fg5ilj5daOSCgryWSWmr3ZvL2rDZIfyHd6A=s1600"
+                            src={img_logo}
                             alt="Your Company"
                         />
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -92,14 +103,22 @@ export default function Register() {
                                     value={password}
                                     id="password"
                                     name="password"
-                                    type="password"
+                                    // type={showPassword ? 'text' : 'password'}
                                     autoComplete="current-password"
                                     required
                                     className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Password"
                                 />
+                                {/* <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility}
+                                    className="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none"
+                                >
+                                    {showPassword ? <EyeOffIcon className="h-5 w-5 text-indigo-500" /> : <EyeIcon className="h-5 w-5 text-indigo-500" />}
+                                </button> */}
                             </div>
 
+                                {/* show errors if any */}
                             <div className="flex items-center font-bold text-red-400 justify-between">
 
                                 {errors}
@@ -107,8 +126,6 @@ export default function Register() {
                             </div>
 
                         </div>
-
-
 
                         <div>
                             <button

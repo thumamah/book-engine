@@ -9,23 +9,29 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Contact() {
 
+  // use state hooks to update the user values
   const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const nav = useNavigate();
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  // navigate hook to redirect user to home page
+  const nav = useNavigate();
 
-    const handleContact = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:3001/contact', { name, email, message });
-            console.log(response.data);
-            nav("/")
-            // handle successful registration here
-        } catch (error) {
-            console.error(error);
-            // handle registration error here
-        }
-    };
+  // function to send request to the contact endpoint
+  const handleContact = async (e) => {
+    // used to avoid default behaviour
+    e.preventDefault();
+    // making a request to message endpoint by sending the user provided message data
+    try {
+      const response = await axios.post('http://localhost:3001/contact', { name, email, message });
+      console.log(response.data);
+      nav("/")
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // contact form using bootstrap
   return (
     <div>
       <Navbar />
@@ -45,15 +51,15 @@ export default function Contact() {
           <form className="mt-8 space-y-6" onSubmit={handleContact}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
-            
+
               <div>
-                
+
                 <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
                 <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   id="email-address"
                   name="email"
                   type="email"
@@ -69,8 +75,8 @@ export default function Contact() {
                   Name
                 </label>
                 <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   id="Name"
                   name="Name"
                   type="Name"
@@ -87,10 +93,10 @@ export default function Contact() {
                   message
                 </label>
                 <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   id="message"
-                  
+
                   name="message"
                   type="message"
                   autoComplete="Name"
@@ -99,18 +105,18 @@ export default function Contact() {
                   placeholder="Enter Message"
                 />
               </div>
-              
+
             </div>
-            
+
 
 
             <div>
               <button
-              // onClick={handleContact}
+
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-              
+
                 Send
               </button>
             </div>
