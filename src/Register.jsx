@@ -5,8 +5,8 @@ import img_logo from './components/log.png';
 import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-// import { LockClosedIcon, EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 
+// component to register
 export default function Register() {
 
     // use state to save the user registeration info and handling errors
@@ -24,7 +24,7 @@ export default function Register() {
         try {
             const response = await axios.post('http://localhost:3001/register', { name, email, password });
             console.log(response.data);
-            nav("/")
+            setErrors(response.data.message)
 
         } catch (error) {
             console.error(error);
@@ -34,9 +34,6 @@ export default function Register() {
         }
     };
 
-    // const togglePasswordVisibility = () => {
-    //     setShowPassword(!showPassword);
-    //   };
 
     return (
         // form for registering 
@@ -103,23 +100,17 @@ export default function Register() {
                                     value={password}
                                     id="password"
                                     name="password"
-                                    // type={showPassword ? 'text' : 'password'}
-                                    autoComplete="current-password"
+
+                                    autoComplete="password"
                                     required
                                     className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Password"
                                 />
-                                {/* <button
-                                    type="button"
-                                    onClick={togglePasswordVisibility}
-                                    className="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none"
-                                >
-                                    {showPassword ? <EyeOffIcon className="h-5 w-5 text-indigo-500" /> : <EyeIcon className="h-5 w-5 text-indigo-500" />}
-                                </button> */}
+
                             </div>
 
-                                {/* show errors if any */}
-                            <div className="flex items-center font-bold text-red-400 justify-between">
+                            {/* show errors if any */}
+                            <div className="flex items-center font-bold text-blue-400 justify-between">
 
                                 {errors}
 

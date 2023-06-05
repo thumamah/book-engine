@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from 'react-router-dom';
 
-// this component fetches hotel based users search
+// this component fetches hotel based on users search
 const HotelResults = (props) => {
 
 
@@ -51,7 +51,7 @@ const HotelResults = (props) => {
   console.log(hotels.length)
 
   // function which direct user to room results page with search data for price calculation
-  // also the hotel id and name passed.
+  // also the hotel id and name are passed.
   const search = (hotelId, name) => {
     console.log(hotelId)
     navi("../Rooms", { state: { Destination, hotelId, numRooms: props.name.numRooms, numAdults: props.name.numAdults, numChildren: props.name.numChildren, date: props.name.date, name } });

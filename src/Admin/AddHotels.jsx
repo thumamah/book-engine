@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 // component to add hotels
 const AddHotels = () => {
 
-
+  // checking if user is allowed to perform this action of uploading new hotels
   const [cookies, setCookie] = useCookies(['role']);
   const navi = useNavigate()
   if (cookies.role === "admin") {
@@ -38,9 +38,11 @@ const AddHotels = () => {
     formData.append('image', image);
 
     try {
+      // including the form data with the request
       console.log(formData)
       const response = await axios.post('http://localhost:3001/addHotel', formData);
       console.log(response);
+      // setting the response message
       setErrors(response.statusText)
 
     } catch (error) {
@@ -60,7 +62,7 @@ const AddHotels = () => {
     // form to handle uploading of hotel details
     <div className='main-admin'>
       <Sidebar />
-      Hello, add hotels
+      
 
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
@@ -69,7 +71,6 @@ const AddHotels = () => {
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Add Hotels
             </h2>
-
 
           </div>
           <form onSubmit={addHotel} className="mt-8 space-y-6">

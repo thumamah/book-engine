@@ -1,20 +1,9 @@
 import React from 'react'
 import './Sidebar.css'
 import Sidebar from './Sidebar'
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 
+//admin dashboard
 const Dashboard = () => {
-
-  const [cookies, setCookie] = useCookies(['role']);
-    const navi = useNavigate()
-    if(cookies.role==="admin"){
-        console.log("good")
-    }
-    else{
-        navi('../')
-        console.log("bad")
-    }
   return (
     
     <div className='main-admin'>

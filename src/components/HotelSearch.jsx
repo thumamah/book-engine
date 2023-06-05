@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation, useNavigate } from 'react-router-dom';
 import HotelResults from './HotelResults';
 
+// search bar for modifying the previous search
 const HotelSearch = () => {
 
     // used react useState hook to remeber is the date model is open or not
@@ -45,12 +46,14 @@ const HotelSearch = () => {
 
     const navi = useNavigate()
 
+    // function to redirect user to hotel page with passing in data
     const searchFunc = () => {
         navi("../Hotels", { state: { Destination, date, numRooms, numAdults, numChildren } });
     }
 
     return (
 
+        // search bar
         <div className="head">
             <div className='Hsearch'>
                 <div className="bookItems">
@@ -127,6 +130,7 @@ const HotelSearch = () => {
                     </button>
                 </div>
             </div>
+            {/* passing the user searched data to hotel results page  */}
             <HotelResults name={{ Destination, numRooms, numAdults, numChildren, date }} />
         </div>
 

@@ -7,8 +7,10 @@ import { useState, useEffect } from "react";
 import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom';
 
+// reset password component
 export default function ResetPass() {
 
+    // use state hook to save user password and token and error and succes messages
     const [password, setPassword] = useState('');
     const [resetToken, setResetToken] = useState('');
     const [errors, setErrors] = useState('');
@@ -17,27 +19,28 @@ export default function ResetPass() {
     const location = useLocation();
     const nav = useNavigate();
 
+    // use effect hook to extract reset token from url using the url search param function
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const reset = searchParams.get('token');
         setResetToken(reset)
     }, [location]);
 
+    // function to make requests to change password endpoint with sending new password and reset token to verify them
     const handleReset = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/changePass', { password, resetToken });
             console.log(response.data);
             setSuccess(response.data.message)
-            
 
         } catch (error) {
             console.error(error);
             setErrors(error.response.data.message)
-
         }
     };
     return (
+        // reset password form
         <div>
             <Navbar />
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -76,33 +79,9 @@ export default function ResetPass() {
 
                         </div>
 
-
-                        {/* <div className="-space-y-px rounded-md shadow-sm">
-                            <div>
-                                <label htmlFor="email-address" className="sr-only">
-                                    Email address
-                                </label>
-                                <input
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    id="email-address"
-                                    name="email"
-                                    type="text"
-
-
-                                    className="relative p-4 block w-full border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    placeholder="Confirm Password"
-                                />
-                            </div>
-                            <br />
-
-                        </div> */}
-
                         <div className="flex items-center font-bold text-blue-400 justify-between">
                             {errors || success}
                         </div>
-                        
-
 
 
                         <div>

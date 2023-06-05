@@ -3,10 +3,14 @@ import Navbar from './components/Navbar'
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// profile component
 export default function Profile() {
 
+    // use state hook to save all bookings
+    // initially its an empty array
     const [bookings, setBookings] = useState([]);
 
+    // function to send requests to delete booking to delete the future bookings
     const handleBookingDelete = async (bookId, endDate) => {
         console.log(bookId)
         try {
@@ -15,15 +19,16 @@ export default function Profile() {
             // updating the booking state by removing the booking that has just been deleted
             // check which booking has been deleted and removes that.
             setBookings((Bookings) => Bookings.filter((booked) => booked._id !== bookId));
-            // handle successful registration here
+            
         } catch (error) {
             console.error(error);
-            // handle registration error here
+            
         }
     };
 
     useEffect(() => {
-        // Make API request to fetch bookings for the logged-in user
+        // making request to fetch bookings for the logged in user
+        // user id is extracted from local storage
         axios.get(`http://localhost:3001/findBooking/${localStorage.getItem('id')}`).then((response) => {
             setBookings(response.data.bookings);
             console.log(response.data.bookings)
@@ -80,6 +85,7 @@ export default function Profile() {
                                         </th>
                                     </tr>
                                 </thead>
+                                {/* iterating over all bookings */}
                                 <tbody className="divide-y divide-gray-200">
                                     {bookings.map((booked) => (
 

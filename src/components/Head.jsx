@@ -1,5 +1,5 @@
 import React from 'react';
-import img1 from './head-img1.jpg';
+import img1 from './burj1.jpg';
 import { useContext } from 'react';
 import './Head.css';
 import 'react-date-range/dist/styles.css'; 
@@ -64,8 +64,10 @@ const Head = () => {
         <div className="head">
 
             <img
-                class="rounded"
+                //class="rounded"
                 src={img1}
+                width={1500}
+                
                 alt="" />
             <div className='search'>
                 <div className="bookItems">

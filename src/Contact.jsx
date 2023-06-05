@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
+// contact component which allows users to send messages
 export default function Contact() {
 
   // use state hooks to update the user values

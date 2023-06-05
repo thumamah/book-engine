@@ -22,7 +22,7 @@ const UserProvider = (props) => {
     }
   }, [user]);
 
-  // login function making request to the endpoint
+  // login function making request to the login endpoint
   const login = async (email, password) => {
     try {
       const res = await axios.post("http://localhost:3001/login", { email, password });

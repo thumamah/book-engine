@@ -33,7 +33,7 @@ export default function Login() {
             console.log(email, password);
             // if its admin then redirect it to the admin portal else home
             if (response.data.role === "admin") {
-                nav("/Admin/Users")
+                nav("/Admin/Dashboard")
             }
             else {
                 nav("/")

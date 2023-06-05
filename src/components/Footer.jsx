@@ -1,14 +1,17 @@
 import React from 'react'
 
+
+// footer component
 export default function Footer() {
   return (
     <div>
       
+      {/* used bootstrap and tailwind css */}
 <footer class="bg-white dark:bg-gray-900">
     <div class="mx-auto w-full container p-4 sm:p-6">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
-              <a href="https://flowbite.com/" class="flex items-center">
+              <a href="" class="flex items-center">
                   
                   <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Fly Hotel</span>
               </a>

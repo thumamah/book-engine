@@ -7,14 +7,17 @@ import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
+// forgot pass component
 export default function Forgot() {
 
+    // use state hooks to save user email, error and success messages
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState('');
     const [success, setSuccess] = useState('');
 
     const nav = useNavigate();
 
+    // function to send request to forgot password endpoint
     const handleReset = async (e) => {
         e.preventDefault();
         try {
@@ -29,6 +32,7 @@ export default function Forgot() {
             // handle registration error here
         }
     };
+    // form for adding email 
     return (
         <div>
             <Navbar />

@@ -2,10 +2,12 @@ import React from 'react'
 import './Sidebar.css'
 import { NavLink } from 'react-router-dom';
 
+// component for adding the sidebar in admin portal
 const Sidebar = () => {
     return (
 
 
+        // adding appropiate links
         <div className='sidebar'>
             <nav className='admin-nav'>
                 <ul>
@@ -15,11 +17,7 @@ const Sidebar = () => {
                         </li>
                     </NavLink>
 
-                    <NavLink to={"/Admin/Users"}>
-                        <li>
-                            Users
-                        </li>
-                    </NavLink>
+
 
                     <NavLink to={"/Admin/Bookings"}>
                         <li>

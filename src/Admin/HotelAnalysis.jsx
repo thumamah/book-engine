@@ -9,26 +9,30 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+
+// component for viewing hotel room occupancy rates
 const HotelAnalysis = () => {
 
+    // checking if user is allowed to perform this action of viewing the occupancy rates
     const [cookies, setCookie] = useCookies(['role']);
     const navi = useNavigate()
-    if(cookies.role==="admin"){
+    if (cookies.role === "admin") {
         console.log("good")
     }
-    else{
+    else {
         navi('../')
         console.log("bad")
     }
-    
-    
-    
 
+    // use state hooks to save related data such as date, hotels, hotel id and occupancy rates
     const [date, setDate] = useState(new Date());
     const [hotels, setHotels] = useState([]);
     const [hotelId, sethotelId] = useState('');
     const [occupancyRate, setOccupancyRate] = useState([]);
 
+    // in order to view the occupancy rate all hotels will be fetched
+    // to allow admin to choose from
+    // used use effect to rerun this function every time hotel id changes
     useEffect(() => {
         const getHotels = async () => {
             try {
@@ -44,16 +48,19 @@ const HotelAnalysis = () => {
 
     }, [hotelId]);
 
+    // function to fetch the occupoancy rates form the occupancy model
     const OccupancyRatesFunction = async (e) => {
         e.preventDefault();
+        // setting the date such that admin can view occupancy rate of the full day
         const formattedDate = date.toISOString().split("T")[0];
         const startDate = new Date(date);
-        startDate.setUTCHours(0, 0, 0, 0); // Set start time to 00:00:00 in UTC
+        startDate.setUTCHours(0, 0, 0, 0); 
         const endDate = new Date(date);
-        endDate.setUTCHours(23, 59, 59, 999); // Set end time to 23:59:59.999 in UTC
+        endDate.setUTCHours(23, 59, 59, 999); 
 
         console.log(formattedDate)
         try {
+            // making request to occupancy rate endpoint to fetch data according to dates and hotel
             const response = await axios.get(`http://localhost:3001/rate/${hotelId}?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`);
             setOccupancyRate(response.data)
             console.log(response)
@@ -64,8 +71,9 @@ const HotelAnalysis = () => {
 
     console.log(occupancyRate)
 
+    // defining the graph data set
     const userData = {
-
+        // iterating over the ocucpancy records and displaying them in graph
         labels: occupancyRate.map((data) => data.date),
         datasets: [
             {
@@ -80,16 +88,11 @@ const HotelAnalysis = () => {
                 ],
                 borderColor: "black",
                 borderWidth: 2,
-               
-                
             },
-         
         ],
-        
-
-     };
+    };
     return (
-
+        // form for admin to select hotel and a date
         <div className='main-admin'>
             <Sidebar />
             Hello, welcome to Hotel analysis new
@@ -145,15 +148,15 @@ const HotelAnalysis = () => {
                         </div>
                     </form>
 
-                    <div style={{ width: 700 }}>
+                    <div style={{ width: 800 }}>
                         <Bar data={userData} />
                     </div>
                 </div>
             </div>
         </div>
-        
+
     )
-                                    
+
 }
 
 export default HotelAnalysis
