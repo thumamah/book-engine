@@ -10,10 +10,10 @@ import { Link } from "react-router-dom";
 // defining the nav names and links
 const navigation = [
   { name: 'Home', href: '/', },
-  { name: 'About', href: '/About', },
   { name: 'Contact', href: '/Contact', },
 ]
 
+// applying css classes from tailwind css
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -78,7 +78,7 @@ export default function Navbar() {
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* if admin is logged in then link to admin profile else user profile */}
                   {user.role === "admin" ? (
-                    <Link to={"./Admin/Dashboard"}>
+                    <Link to={"/Admin/Dashboard"}>
                       <button
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">
 

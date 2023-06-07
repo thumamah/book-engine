@@ -42,6 +42,14 @@
     cursor: pointer;
 }
 
+#ad {
+    color: brown;
+    position: absolute;
+    top: 92px;
+    z-index: 1;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 950px) {
     .search {
         position: relative;

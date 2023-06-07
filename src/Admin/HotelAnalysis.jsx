@@ -1,6 +1,7 @@
 import React from 'react'
 import './Sidebar.css'
 import Sidebar from './Sidebar'
+import '../components/Head.css';
 import { useState, useEffect } from "react";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -118,7 +119,8 @@ const HotelAnalysis = () => {
                                     onChange={date => setDate(date)}
                                     dateFormat="yyyy/MM/dd"
                                     className='dates'
-                                />
+                                    id='ad'
+                                /> 
                             </div>
                             <br />
                             <div>
